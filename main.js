@@ -28,12 +28,17 @@ app.get("/", (req, res) => {
 
 app.post("/coursera", async (req, res) => {
   const { email, password } = req.body;
-  await run(email, password);
-  res.download(`${__dirname}/courses.json`, function (err) {
-    if (err) {
-      console.log(err);
-    }
-  });
+  try {
+    await run(email, password);
+    res.download(`${__dirname}/courses.json`, function (err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    res.redirect("/");
+  }
 });
 
 app.post("/upload", async (req, res) => {
