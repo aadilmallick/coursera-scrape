@@ -1,0 +1,86 @@
+<%- include('partials/head.ejs') %>
+<body class="bg-slate-100 font-sans p-0 m-0">
+  <section
+    class="bg-stone-50 p-8 max-w-screen-xl mx-auto text-center mt-24 shadow-lg rounded"
+  >
+    <h1 class="text-5xl mb-8">Coursera to JSON to website</h1>
+    <p>
+      A way to see all courses at once: Upload an appropriate json file or fetch
+      one for yourself.
+    </p>
+    <div class="flex space-x-8 items-center mt-8 flex-col lg:flex-row">
+      <pre
+        class="text-stone-50 bg-stone-800 text-left p-4 break-normal"
+      ><code>   
+[
+    {
+        "title": "Supervised Machine Learning: Regression and Classification ",
+        "url": "https://www.coursera.org/learn/machine-learning/home/welcome",
+        "image": {
+            "src": "https://www.somesource.png",
+            "alt": "Supervised Machine Learning: Regression and Classification"
+        }
+    },
+    ... 
+]
+</code></pre>
+
+      <div>
+        <p class="text-xl text-slate-400 font-semibold italic">
+          We just need the course title, link, and image.
+        </p>
+      </div>
+    </div>
+    <div class="grid lg:grid-cols-2 mt-8 grid-cols-1 lg:space-y-0 space-y-8">
+      <form method="POST" action="/upload" enctype="multipart/form-data">
+        <h2 class="text-4xl font-light">JSON submission</h2>
+        <p class="w-1/2 mx-auto mt-4 mb-4">
+          If you already have a valid JSON file, upload to see your already
+          enrolled courses.
+        </p>
+        <input
+          type="file"
+          name="file"
+          id="file"
+          class="border-2 rounded py-1"
+        />
+        <button
+          class="bg-blue-600 text-stone-100 px-4 py-2 rounded hover:opacity-75"
+        >
+          submit file
+        </button>
+      </form>
+      <form method="POST" action="/coursera">
+        <h2 class="text-4xl font-light">Fetch from Coursera</h2>
+        <p class="mx-auto mt-4 mb-4 w-3/4">
+          Using Puppeteer for web scraping, just wait a minute so that you can
+          log into Coursera through Google and fetch courses, saving it to a
+          JSON file.
+        </p>
+        <div>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Google email"
+            class="p-2 shadow-md"
+          />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Google Password"
+            class="p-2 shadow-md"
+          />
+          <button
+            class="bg-blue-600 text-stone-100 px-4 py-2 rounded hover:opacity-75"
+            type="submit"
+          >
+            Fetch courses
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</body>
+<%- include('partials/footer.ejs') %>

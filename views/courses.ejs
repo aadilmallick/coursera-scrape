@@ -1,0 +1,16 @@
+<%- include('partials/head.ejs') %>
+<body class="bg-slate-100 font-sans p-0 m-0"></body>
+    <section class="max-width-screen-xl grid grid-cols-3 gap-8 p-8">
+        <% for( let course of courses ) { %>
+            <div class="bg-stone-50 shadow-md p-4 flex space-x-4 rounded">
+                <div class="w-24 shrink-0">
+                    <img src="<%= course.image.src %>" alt="<%= course.image.alt %>" class="w-full">
+                </div>
+                <a href="<%= course.url %>" target="_blank">
+                    <h2 class="text-2xl font-semibold"><%= course.title %> </h2>
+                </a>
+            </div>
+        <% } %>
+    </section>
+</body>
+<%- include('partials/footer.ejs') %>
