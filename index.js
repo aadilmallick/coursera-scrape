@@ -10,6 +10,7 @@ async function setup() {
   const browser = await puppeteer.launch({
     headless: false,
     executablePath: executablePath(),
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
   await page.goto("https://accounts.google.com/signin/v2/identifier");
