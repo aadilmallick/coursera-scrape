@@ -5,6 +5,11 @@ const courseraURL = "https://www.coursera.org/?authMode=login";
 const courses = [];
 const fs = require("fs/promises");
 
+// * 1. login to google
+// * 2. login to coursera
+// * 3. Go to in progress courses
+// * 4. loop through courses, add to file.
+
 async function setup() {
   puppeteer.use(StealthPlugin());
   const browser = await puppeteer.launch({
@@ -19,7 +24,7 @@ async function setup() {
 
 async function login(email, password) {
   const { page, browser } = await setup();
-  console.log("in login", email, password);
+  console.log("in login", email);
   await page.type('[type="email"]', email);
   await page.click("#identifierNext");
   await page.waitForTimeout(8000);
@@ -37,11 +42,13 @@ async function coursera_setup(email, password) {
   await page.setViewport({ width: 1500, height: 1200 });
   await page.goto(courseraURL);
 
+  // * google button
   await Promise.all([
     page.click("._dfm2a9 button:first-child"),
     page.waitForNavigation(),
   ]);
 
+  // * in progress link
   await Promise.all([
     page.click(".logged-in-home-nav-container ul li:nth-child(2)"),
     page.waitForNavigation(),
@@ -52,7 +59,7 @@ async function coursera_setup(email, password) {
 }
 
 async function run(email, password) {
-  console.log("In run", email, password);
+  console.log("In run", email);
   const { page, browser } = await coursera_setup(email, password);
   let nextIsDisabled = false;
   while (!nextIsDisabled) {
@@ -71,6 +78,7 @@ async function run(email, password) {
       }));
     });
     courses.push(...courseData);
+    // * the next button
     await page.waitForSelector("div[role='navigation'] button:last-child");
     nextIsDisabled = await page.evaluate(() => {
       const nextButton = document.querySelector(

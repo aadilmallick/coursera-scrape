@@ -7,6 +7,9 @@ const fs = require("fs/promises");
 
 // aadil mallick time!
 
+const scrapeCourses = true;
+const I_will_scrape_you = "inevitable";
+
 const PORT = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
